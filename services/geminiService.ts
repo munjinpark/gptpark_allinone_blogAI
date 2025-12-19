@@ -1,10 +1,12 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { ColorTheme, GeneratedContent, SupplementaryInfo } from '../types';
 
-const API_KEY = process.env.API_KEY;
+// Vite의 define을 통해 주입된 환경 변수 사용
+// vite.config.ts에서 process.env.GEMINI_API_KEY로 주입됩니다
+const API_KEY = process.env.GEMINI_API_KEY || process.env.API_KEY;
 
-if (!API_KEY) {
-  throw new Error("API_KEY environment variable is not set.");
+if (!API_KEY || API_KEY === 'undefined' || API_KEY === 'null') {
+  throw new Error("GEMINI_API_KEY environment variable is not set. Please set GEMINI_API_KEY in .env.local file.");
 }
 
 const ai = new GoogleGenAI({ apiKey: API_KEY });

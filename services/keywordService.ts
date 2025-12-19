@@ -1,7 +1,13 @@
 import type { KeywordData, SearchSource, BlogPostData, KeywordMetrics, GeneratedTopic, BlogStrategyReportData, RecommendedKeyword, SustainableTopicCategory, GoogleSerpData, PaaItem, SerpStrategyReportData, WeatherData, NaverNewsData, NewsStrategyIdea } from '../types';
 import { GoogleGenAI, Type } from "@google/genai";
 
-const API_KEY = process.env.API_KEY;
+// Vite의 define을 통해 주입된 환경 변수 사용
+const API_KEY = process.env.GEMINI_API_KEY || process.env.API_KEY;
+
+if (!API_KEY || API_KEY === 'undefined' || API_KEY === 'null') {
+  throw new Error("GEMINI_API_KEY environment variable is not set. Please set GEMINI_API_KEY in .env.local file.");
+}
+
 const ai = new GoogleGenAI({ apiKey: API_KEY });
 
 // NOTE: To combat the inherent unreliability of public CORS proxies, this service employs a highly resilient, multi-strategy approach.
