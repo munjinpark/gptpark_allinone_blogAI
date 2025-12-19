@@ -170,7 +170,7 @@ const InteractiveCodeModal: React.FC<{
 }> = ({ code, onClose }) => {
   const [copied, setCopied] = useState(false);
   const [formattedCode, setFormattedCode] = useState<string>('Formatting code...');
-  const workerRef = useRef<Worker>();
+  const workerRef = useRef<Worker | null>(null);
 
   useEffect(() => {
     const workerUrl = URL.createObjectURL(workerBlob);
@@ -263,7 +263,7 @@ const ResultDisplay: React.FC<{
   const [isInteractiveCodeModalOpen, setInteractiveCodeModalOpen] = useState(false);
 
   const [formattedHtmlForView, setFormattedHtmlForView] = useState('');
-  const workerRef = useRef<Worker>();
+  const workerRef = useRef<Worker | null>(null);
 
   useEffect(() => {
     const workerUrl = URL.createObjectURL(workerBlob);
